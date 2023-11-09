@@ -1,0 +1,44 @@
+theme = "tokyonight_snoupix"
+
+[editor]
+shell = ["powershell"]
+auto-save = true
+bufferline = "multiple"
+
+[editor.lsp]
+display-messages = true
+
+[editor.file-picker]
+hidden = false
+
+[editor.statusline]
+left = ["mode", "spinner", "selections"]
+center = ["file-name"]
+right = ["diagnostics", "position-percentage", "position", "file-encoding", "file-type"]
+separator = "│"
+mode.normal = "NOR"
+mode.insert = "INS"
+mode.select = "SEL"
+
+# [editor.whitespace.characters]
+# space = "→"
+# tab = "→"
+
+# [editor.whitespace.render]
+# space = "all"
+# tab = "all"
+# newline = "none"
+
+[editor.indent-guides]
+render = true
+character = "┊" # "╎", "▏", "┆", "┊", "⸽"
+skip-levels = 1
+
+[keys.normal]
+"backspace" = { r = [":config-reload"] }
+"backspace" = { c = [":config-open"] }
+C-S-d = "goto_prev_diag"
+C-d = "goto_next_diag"
+C-S-p = "goto_prev_paragraph"
+C-p = "goto_next_paragraph"
+C-x = "extend_line_above"
