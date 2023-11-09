@@ -1,3 +1,7 @@
+#!/bin/bash
+
+set -e
+
 if [[ -z $HOME ]]; then
     echo "Error: \$HOME is not set"
     exit 1
@@ -17,5 +21,10 @@ do
         echo "Soft linked $DIR to $HOME/.config"
     fi
 done
+
+ln -s .zshrc $HOME/.zshrc
+echo "Soft linked .zshrc to $HOME/.zshrc"
+ln -s .p10k.zsh $HOME/.p10k.zsh
+echo "Soft linked .p10k.zsh to $HOME/.p10k.zsh"
 
 echo "Done!"

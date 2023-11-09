@@ -1,7 +1,7 @@
 theme = "tokyonight_snoupix"
 
 [editor]
-shell = ["powershell"]
+# shell = ["powershell"]
 auto-save = true
 bufferline = "multiple"
 
@@ -14,7 +14,7 @@ hidden = false
 [editor.statusline]
 left = ["mode", "spinner", "selections"]
 center = ["file-name"]
-right = ["diagnostics", "position-percentage", "position", "file-encoding", "file-type"]
+right = ["diagnostics", "position-percentage", "position", "file-encoding", "version-control", "file-type"]
 separator = "│"
 mode.normal = "NOR"
 mode.insert = "INS"
@@ -35,10 +35,11 @@ character = "┊" # "╎", "▏", "┆", "┊", "⸽"
 skip-levels = 1
 
 [keys.normal]
-"backspace" = { r = [":config-reload"] }
-"backspace" = { c = [":config-open"] }
+"backspace" = { r = [":config-reload"], c = [":config-open"] }
 C-S-d = "goto_prev_diag"
 C-d = "goto_next_diag"
+# C-S-g = "goto_prev_change"
+C-g = "goto_next_change"
 C-S-p = "goto_prev_paragraph"
 C-p = "goto_next_paragraph"
 C-x = "extend_line_above"
