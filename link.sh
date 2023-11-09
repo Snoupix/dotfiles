@@ -2,8 +2,8 @@
 
 set -e
 
-if [[ -z $HOME ]]; then
-    echo "Error: \$HOME is not set"
+if [[ -z $HOME || -z $PWD ]]; then
+    echo "Error: \$HOME or \$PWD is not set"
     exit 1
 fi
 
@@ -17,14 +17,14 @@ DIRS=$(ls -d *)
 for DIR in $DIRS
 do
     if [[ -d $DIR && $DIR != _* ]]; then
-        ln -s $DIR $HOME/.config/$DIR
+        ln -s $PWD/$DIR $HOME/.config/$DIR
         echo "Soft linked $DIR to $HOME/.config"
     fi
 done
 
-ln -s .zshrc $HOME/.zshrc
+ln -s $PWD/.zshrc $HOME/.zshrc
 echo "Soft linked .zshrc to $HOME/.zshrc"
-ln -s .p10k.zsh $HOME/.p10k.zsh
+ln -s $PWD/.p10k.zsh $HOME/.p10k.zsh
 echo "Soft linked .p10k.zsh to $HOME/.p10k.zsh"
 
 echo "Done!"
