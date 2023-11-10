@@ -16,6 +16,13 @@ DIRS=$(ls -d *)
 
 for DIR in $DIRS
 do
+    rm -rf $HOME/.config/$DIR
+
+    if [ $1 == "-r" ]; then
+        echo "Removed $HOME/.config/$DIR symlink"
+        continue
+    fi
+
     if [[ -d $DIR && $DIR != _* ]]; then
         ln -s $PWD/$DIR $HOME/.config/$DIR
         echo "Soft linked $DIR to $HOME/.config"

@@ -27,6 +27,7 @@ PACKAGES=(
     fzf
     gcc
     zsh
+    rustup
 )
 
 PM_FLAGS=(
