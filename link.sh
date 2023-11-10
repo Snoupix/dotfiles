@@ -2,6 +2,11 @@
 
 set -e
 
+FILES=(
+    .zshrc
+    .p10k.zsh
+)
+
 if [[ -z $HOME || -z $PWD ]]; then
     echo "Error: \$HOME or \$PWD is not set"
     exit 1
@@ -14,24 +19,32 @@ fi
 
 DIRS=$(ls -d *)
 
-for DIR in $DIRS
-do
+for DIR in $DIRS; do
     rm -rf $HOME/.config/$DIR
 
-    if [ $1 == "-r" ]; then
+    if [[ $1 == "-r" ]]; then
         echo "Removed $HOME/.config/$DIR symlink"
         continue
     fi
 
     if [[ -d $DIR && $DIR != _* ]]; then
         ln -s $PWD/$DIR $HOME/.config/$DIR
-        echo "Soft linked $DIR to $HOME/.config"
+        echo "Symlinked $DIR to $HOME/.config"
     fi
 done
 
-ln -s $PWD/.zshrc $HOME/.zshrc
-echo "Soft linked .zshrc to $HOME/.zshrc"
-ln -s $PWD/.p10k.zsh $HOME/.p10k.zsh
-echo "Soft linked .p10k.zsh to $HOME/.p10k.zsh"
+for FILE in $FILES; do
+    rm -rf $HOME/$FILE
+
+    if [[ $1 == "-r" ]]; then
+        echo "Removed $HOME/$FILE symlink"
+        continue
+    fi
+
+    if [[ -f $FILE ]]; then
+        ln -s $PWD/$FILE $HOME/$FILE
+        echo "Symlinked $FILE to $HOME"
+    fi
+done
 
 echo "Done!"
