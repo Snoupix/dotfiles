@@ -33,7 +33,7 @@ for DIR in $DIRS; do
     fi
 done
 
-for FILE in $FILES; do
+for FILE in "${FILES[@]}"; do
     rm -rf $HOME/$FILE
 
     if [[ $1 == "-r" ]]; then
