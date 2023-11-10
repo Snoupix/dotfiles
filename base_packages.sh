@@ -27,7 +27,10 @@ PACKAGES=(
     fzf
     gcc
     zsh
+    neovim
     rustup
+    docker
+    docker-compose
 )
 
 PM_FLAGS=(
@@ -50,4 +53,12 @@ for V in "${PM_FLAGS[@]}"; do
     fi
 done
 
+rustup default stable
+rustup component add cargo rustfmt clippy rust-src rust-analyzer rustc rust-docs
+rustup update
+
+cargo install --locked zellij
+cargo install ripgrep
+
 echo "Done!"
+exit 0
