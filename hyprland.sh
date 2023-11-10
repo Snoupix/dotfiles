@@ -35,7 +35,7 @@ NVIDIA_STAGE=(
 )
 
 INSTALL_STAGE=(
-    mako 
+    # mako 
     waybar
     swww 
     swaylock-effects 
@@ -228,47 +228,21 @@ read -rep $'[\e[1;33mACTION\e[0m] - Would you like to copy config files? (y,n) '
 if [[ $CFG =~ "Y|y" ]]; then
     echo -e "$CNT - Copying config files..."
 
-    ln -s hypr ~/.config/hypr
+    mkdir -p ~/.config/
+    ln -s _hypr ~/.config/hypr
 
-    echo -e "$COK - Setting mesuring system to metric..."
-    sed -i 's/SET_MESU=""/SET_MESU="M"/' ~/.config/hypr/hyprv.conf
-    ln -sf ~/.config/hypr/waybar/conf/mesu-met.jsonc ~/.config/hypr/waybar/conf/mesu.jsonc
-
-    for DIR in hypr mako swaylock waybar wlogout wofi 
-    do 
-        DIRPATH=~/.config/$DIR
-        if [ -d "$DIRPATH" ]; then 
-            echo -e "$CAT - Config for $DIR located, backing up."
-            mv $DIRPATH $DIRPATH-back &>> $INSTLOG
-            echo -e "$COK - Backed up $DIR to $DIRPATH-back."
-        fi
-
-        # make new empty folders
-        mkdir -p $DIRPATH &>> $INSTLOG
+    for DIR in "$(\ls _hypr -D)"; do
+        ln -s ./_hypr/$DIR ~/.config/$DIR
+        echo "Symlinked $DIR into ~/.config folder"
     done
-
-    # link up the config files
-    echo -e "$CNT - Setting up the new config..." 
-    cp ~/.config/HyprV/hypr/* ~/.config/hypr/
-    curl -Ss https://raw.githubusercontent.com/hyprwm/Hyprland/main/example/hyprland.conf > ~/.config/hypr/default_hyprland.conf
-    # ln -sf ~/.config/HyprV/kitty/kitty.conf ~/.config/kitty/kitty.conf
-    ln -sf ~/.config/HyprV/mako/conf/config-dark ~/.config/mako/config
-    ln -sf ~/.config/HyprV/swaylock/config ~/.config/swaylock/config
-    ln -sf ~/.config/HyprV/waybar/conf/v4-config.jsonc ~/.config/waybar/config.jsonc
-    ln -sf ~/.config/HyprV/waybar/style/v4-style-dark.css ~/.config/waybar/style.css
-    ln -sf ~/.config/HyprV/wlogout/layout ~/.config/wlogout/layout
-    ln -sf ~/.config/HyprV/wofi/config ~/.config/wofi/config
-    ln -sf ~/.config/HyprV/wofi/style/v4-style-dark.css ~/.config/wofi/style.css
-
 
     # add the Nvidia env file to the config (if needed)
     if [[ "$ISNVIDIA" == true ]]; then
-        echo -e "\nsource = ~/.config/hypr/env_var_nvidia.conf" >> ~/.config/hypr/hyprland.conf
+        echo -e "\nsource = ~/.config/_hypr_utils/env_var_nvidia.conf" >> _hypr/hypr/hyprland.conf
     fi
 
-    # Copy the SDDM theme
     echo -e "$CNT - Setting up the login screen."
-    sudo cp -R Extras/sdt /usr/share/sddm/themes/
+    sudo cp -R _hypr/_sdt /usr/share/sddm/themes/sdt
     sudo chown -R $USER:$USER /usr/share/sddm/themes/sdt
     sudo mkdir /etc/sddm.conf.d
     echo -e "[Theme]\nCurrent=sdt" | sudo tee -a /etc/sddm.conf.d/10-theme.conf &>> $INSTLOG
@@ -280,18 +254,16 @@ if [[ $CFG =~ "Y|y" ]]; then
         sudo mkdir $WLDIR
     fi 
     
-    # stage the .desktop file
-    sudo cp Extras/hyprland.desktop /usr/share/wayland-sessions/
+    sudo cp _hypr_utils/hyprland.desktop /usr/share/wayland-sessions/
 
     # setup the first look and feel as dark
-    xfconf-query -c xsettings -p /Net/ThemeName -s "Adwaita-dark"
-    xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"
-    gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
-    gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark"
-    cp -f ~/.config/HyprV/backgrounds/v4-background-dark.jpg /usr/share/sddm/themes/sdt/wallpaper.jpg
+    # xfconf-query -c xsettings -p /Net/ThemeName -s "Adwaita-dark"
+    # xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"
+    # gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
+    # gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark"
+    # cp -f ~/.config/HyprV/backgrounds/v4-background-dark.jpg /usr/share/sddm/themes/sdt/wallpaper.jpg
 fi
 
-### Script is done ###
 echo -e "$CNT - Script had completed!"
 if [[ "$ISNVIDIA" == true ]]; then 
     echo -e "$CAT - Since we attempted to setup an Nvidia GPU the script will now end and you should reboot.
@@ -300,7 +272,7 @@ if [[ "$ISNVIDIA" == true ]]; then
 fi
 
 read -rep $'[\e[1;33mACTION\e[0m] - Would you like to start Hyprland now? (y,n) ' HYP
-if [[ $HYP == "Y" || $HYP == "y" ]]; then
+if [[ $HYP =~ "Y|y" ]]; then
     exec sudo systemctl start sddm &>> $INSTLOG
 else
     exit

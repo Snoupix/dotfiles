@@ -114,11 +114,21 @@ export GOPATH="/home/go"
 #
 # Example aliases
 alias zshconfig="$EDITOR ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 alias hx="helix"
-# alias please='sudo $(history -p !!)'
+
 alias please='sudo !!' # Runs the last command with sudo
+if [[ -x history ]]; then
+    alias please='sudo $(history !!)'
+fi
+
 alias l='ls -Al'
+if [[ -x ~/.cargo/bin/eza ]]; then
+    alias l='eza -la --icons=auto' # long list all
+    alias ls='eza --icons=auto' # short list
+    alias ld='eza -D --icons=auto' # short list dirs
+    alias lld='eza -lD --icons=auto' # short list dirs
+fi
 
 # WSL
 alias clip="clip.exe"

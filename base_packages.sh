@@ -61,6 +61,7 @@ rustup update
 
 cargo install --locked zellij
 cargo install ripgrep
+cargo install eza
 
 nvim --headless '+Lazy! restore' +qa
 

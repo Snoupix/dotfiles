@@ -1,0 +1,81 @@
+: 1699642174:0;ls ../hyprdots/Configs
+: 1699642189:0;ls ../hyprdots/Configs -Al
+: 1699642198:0;ld ../hyprdots/Configs
+: 1699642201:0;l ../hyprdots/Configs
+: 1699642247:0;l ../hyprdots/Configs/.config
+: 1699642249:0;ls ../hyprdots/Configs/.config
+: 1699642341:0;ls _hypr
+: 1699642344:0;ls _hyprland
+: 1699642386:0;ld _hyprland
+: 1699642412:0;ld _hyprland -G
+: 1699642415:0;ld _hyprland -Gx
+: 1699642453:0;ld _hyprland -GD
+: 1699642457:0;ls _hyprland -GD
+: 1699642460:0;ls _hyprland -D
+: 1699642462:0;ls _hyprland -
+: 1699642466:0;ls _hyprland
+: 1699642470:0;ls _hyprland -D
+: 1699642482:0;ls _hyprland -D | rmdir
+: 1699642528:0;for dir in "${ls _hyprland -D}"; do\
+echo dir\
+done
+: 1699642538:0;for dir in "${ls _hyprland -D}"; do\
+echo $dir\
+done
+: 1699642554:0;for dir in "$(ls _hyprland -D)"; do\
+echo $dir\
+done
+: 1699642573:0;for dir in "$(ls _hyprland -D)"; do\
+rm -rf _hyprland/$dir\
+done
+: 1699642583:0;ls _hyprland -D
+: 1699642608:0;rm -rf _hyprland/backgrounds
+: 1699642611:0;rm -rf _hyprland/kitty
+: 1699642614:0;rm -rf _hyprland/mako
+: 1699642616:0;rm -rf _hyprland/swaylock
+: 1699642618:0;rm -rf _hyprland/waybar
+: 1699642621:0;rm -rf _hyprland/wlogout
+: 1699642624:0;rm -rf _hyprland/wofi
+: 1699642627:0;ls _hyprland -D
+: 1699642629:0;ls _hyprland 
+: 1699642734:0;mv ../hyprdots/Configs/.config/* _hyprland
+: 1699642744:0;rm -rf _hyprland/Code
+: 1699642794:0;ls _hypr
+: 1699642823:0;mv _hypr _hypr_utils
+: 1699642832:0;mv _hyprland _hypr
+: 1699643409:0;ls _hyprland
+: 1699643411:0;ls _hypr
+: 1699643418:0;ls _hypr/hypr
+: 1699643537:0;ld _hypr/hypr
+: 1699643542:0;ld _hypr/
+: 1699643602:0;source ~/.zshrc
+: 1699643605:0;ld _hypr/
+: 1699643653:0;for dir in "$(ls -d _hypr)"; do echo dir; done
+: 1699643658:0;for dir in "$(ls -d _hypr)"; do echo $dir; done
+: 1699643667:0;ls -d _hyper
+: 1699643678:0;for dir in "$(ls -d _hypr)"; do echo $dir; done
+: 1699643680:0;ls -d _hypr
+: 1699643685:0;ls _hypr
+: 1699643688:0;ld _hypr
+: 1699643695:0;for dir in "$(ls -d ./_hypr)"; do echo $dir; done
+: 1699643702:0;for dir in "$(ls -d '_hypr')"; do echo $dir; done
+: 1699643716:0;for dir in "$(ls _hypr -d)"; do echo $dir; done
+: 1699643719:0;for dir in "$(ls _hypr -D)"; do echo $dir; done
+: 1699643728:0;for dir in "$(\ls _hypr -D)"; do echo $dir; done
+: 1699643748:0;bash
+: 1699643856:0;ld _hypr
+: 1699644007:0;rm -rf _hypr/kitty
+: 1699644009:0;ld _hypr
+: 1699644051:0;l _hypr
+: 1699644056:0;l _hypr_utils
+: 1699645508:0;ls _hypr
+: 1699645512:0;ld _hypr
+: 1699645602:0;cp -R ../automation/hyprland/Extras/sdt/ _hypr/_sdt
+: 1699645718:0;ls ../automation/hyprland/Extras
+: 1699645720:0;l ../automation/hyprland/Extras
+: 1699645738:0;cat ../automation/hyprland/Extras/hyprland.desktop
+: 1699645758:0;ls _hypr
+: 1699645761:0;ls _hypr_utils
+: 1699645780:0;cp ../automation/hyprland/Extras/hyprland.desktop _hypr_utils/
+: 1699645872:0;ga .
+: 1699645911:0;gcam "Copy https://github.com/prasanthrangan/hyprdots config files && Updated hyprland.sh script"
