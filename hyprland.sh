@@ -124,7 +124,7 @@ If you are worried about entering your password then you may want to review the 
 sleep 1
 
 read -rep $'[\e[1;33mACTION\e[0m] - Would you like to continue with the install (y,n) ' CONTINST
-if [[ $CONTINST =~ "Y|y" ]]; then
+if [[ $CONTINST == "y" ]]; then
     echo -e "$CNT - Setup starting..."
     sudo touch /tmp/hyprv.tmp
 else
@@ -139,7 +139,7 @@ else
 fi
 
 read -rep $'[\e[1;33mACTION\e[0m] - Would you like to disable WiFi powersave? (y,n) ' WIFI
-if [[ $WIFI =~ "Y|y" ]]; then
+if [[ $WIFI == "y" ]]; then
     LOC="/etc/NetworkManager/conf.d/wifi-powersave.conf"
     echo -e "$CNT - The following file has been created $LOC.\n"
     echo -e "[connection]\nwifi.powersave = 2" | sudo tee -a $LOC &>> $INSTLOG
@@ -157,7 +157,7 @@ if [[ $WIFI =~ "Y|y" ]]; then
 fi
 
 read -rep $'[\e[1;33mACTION\e[0m] - Do you want to check/install yay ? (y,n) ' YAY
-if [[ $YAY =~ "Y|y" ]]; then
+if [[ $YAY == "y" ]]; then
     if [ ! -f /sbin/yay ]; then  
         echo -en "$CNT - Configuring yay."
         git clone https://aur.archlinux.org/yay-bin &>> $INSTLOG
@@ -180,7 +180,7 @@ if [[ $YAY =~ "Y|y" ]]; then
 fi
 
 read -rep $'[\e[1;33mACTION\e[0m] - Would you like to install the packages? (y,n) ' INST
-if [[ $INST =~ "Y|y" ]]; then
+if [[ $INST == "y" ]]; then
     echo -e "$CNT - Prep Stage - Installing needed components, this may take a while..."
     for SOFTWR in ${PREP_STAGE[@]}; do
         install_software $SOFTWR 
@@ -225,13 +225,17 @@ if [[ $INST =~ "Y|y" ]]; then
 fi
 
 read -rep $'[\e[1;33mACTION\e[0m] - Would you like to copy config files? (y,n) ' CFG
-if [[ $CFG =~ "Y|y" ]]; then
+if [[ $CFG == "y" ]]; then
     echo -e "$CNT - Copying config files..."
 
     mkdir -p ~/.config/
     ln -s _hypr ~/.config/hypr
 
-    for DIR in "$(\ls _hypr -D)"; do
+    for DIR in $(\ls _hypr -D || tr "\n" " "); do
+        if [[ $DIR == _* ]]; then
+            continue
+        fi
+
         ln -s ./_hypr/$DIR ~/.config/$DIR
         echo "Symlinked $DIR into ~/.config folder"
     done
@@ -272,7 +276,7 @@ if [[ "$ISNVIDIA" == true ]]; then
 fi
 
 read -rep $'[\e[1;33mACTION\e[0m] - Would you like to start Hyprland now? (y,n) ' HYP
-if [[ $HYP =~ "Y|y" ]]; then
+if [[ $HYP == "y" ]]; then
     exec sudo systemctl start sddm &>> $INSTLOG
 else
     exit

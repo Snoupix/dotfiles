@@ -3,25 +3,25 @@ local wezterm = require 'wezterm'
 local config = {}
 
 local default_bg = "20230328173918_1.jpg"
-local os = 'Windows' -- Windows, Linux or MacOS
+local osname = 'Windows' -- Windows, Linux or MacOS
 
 local separator = package.config:sub(1, 1)
 if separator == '/' then
     local uname = io.popen("uname -s"):read("*l")
     if uname == "Linux" then
-        os = 'Linux'
+        osname = 'Linux'
     elseif uname == "Darwin" then
-        os = 'MacOS'
+        osname = 'MacOS'
     end
 elseif separator == '\\' then
-    os = 'Windows'
+    osname = 'Windows'
 end
 
 local function getHome()
     return os.getenv("HOME") or os.getenv("USERPROFILE") or "/home/snoupix"
 end
 
-local font_fam = os == 'Windows' and 'MesloLGS NFM' or 'MesloLGS NF'
+local font_fam = osname == 'Windows' and 'MesloLGS NFM' or 'MesloLGS NF'
 
 local function getBGPath()
     local switch = {
@@ -30,7 +30,7 @@ local function getBGPath()
         ["MacOS"] = "/Users/snoupix/wallpapers",
     }
 
-    return switch[os]
+    return switch[osname]
 end
 
 local function getRandomBGorDefault(directory, default_bg)
@@ -137,7 +137,7 @@ config.background = {
     },
 }
 
-if os == "Windows" then
+if osname == "Windows" then
     config.default_prog = {
         'C:\\Windows\\System32\\wsl.exe',
         '-d',
@@ -145,9 +145,9 @@ if os == "Windows" then
     }
 
     config.default_cwd = [[\\wsl$\Arch\home\snoupix\work]]
-elseif os == "MacOS" then
+elseif osname == "MacOS" then
     config.native_macos_fullscreen_mode = true
-elseif os == "Linux" then
+elseif osname == "Linux" then
     config.default_cwd = getHome .. '/work'
 end
 
