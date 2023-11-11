@@ -148,7 +148,7 @@ if osname == "Windows" then
 elseif osname == "MacOS" then
     config.native_macos_fullscreen_mode = true
 elseif osname == "Linux" then
-    config.default_cwd = getHome .. '/work'
+    config.default_cwd = getHome() .. '/work'
 end
 
 return config
