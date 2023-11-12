@@ -40,6 +40,8 @@ INSTALL_STAGE=(
     swww 
     swaylock-effects 
     wofi 
+    rofi
+    beautyline
     wlogout 
     xdg-desktop-portal-hyprland 
     swappy 
