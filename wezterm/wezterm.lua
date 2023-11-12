@@ -2,6 +2,10 @@ local wezterm = require 'wezterm'
 
 local config = {}
 
+if wezterm.config_builder then
+    config = wezterm.config_builder()
+end
+
 local default_bg = "20230328173918_1.jpg"
 local osname = 'Windows' -- Windows, Linux or MacOS
 
@@ -60,6 +64,11 @@ if wezterm.config_builder then
 end
 
 config.font = wezterm.font_with_fallback {
+    -- 'MesloLGMDZNerdFont',
+    'MesloLGMDZNerdFontMono',
+    'MesloLGS-Regular',
+    'JetBrainsMono',
+    'JetBrainsMonoNerdFont',
     font_fam,
     'monospace',
 }
@@ -105,8 +114,12 @@ config.window_padding = {
     bottom = 10,
 }
 
-config.background = {
-    {
+if config.background == nil then
+    config.background = {}
+end
+
+if osname ~= "Linux" then
+    table.insert(config.background, {
         source = {
             File = getRandomBGorDefault(
                 getBGPath(),
@@ -121,21 +134,22 @@ config.background = {
         },
         height = '100%',
         width = '100%',
+    })
+end
+
+table.insert(config.background, {
+    source = {
+        Color = '#010B17',
     },
-    {
-        source = {
-            Color = '#010B17',
-        },
-        opacity = 0.85,
-        hsb = {
-            brightness = 1.0,
-            hue = 1.0,
-            saturation = 1.0,
-        },
-        height = '100%',
-        width = '100%',
+    opacity = osname == "Linux" and 0.4 or 0.85,
+    hsb = {
+        brightness = 1.0,
+        hue = 1.0,
+        saturation = 1.0,
     },
-}
+    height = '100%',
+    width = '100%',
+})
 
 if osname == "Windows" then
     config.default_prog = {

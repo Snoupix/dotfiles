@@ -229,14 +229,14 @@ if [[ $CFG == "y" ]]; then
     echo -e "$CNT - Copying config files..."
 
     mkdir -p ~/.config/
-    ln -s _hypr ~/.config/hypr
+    ln -sf _hypr ~/.config/hypr
 
     for DIR in $(\ls _hypr -D || tr "\n" " "); do
         if [[ $DIR == _* ]]; then
             continue
         fi
 
-        ln -s ./_hypr/$DIR ~/.config/$DIR
+        ln -sf $PWD/_hypr/$DIR ~/.config/$DIR
         echo "Symlinked $DIR into ~/.config folder"
     done
 
