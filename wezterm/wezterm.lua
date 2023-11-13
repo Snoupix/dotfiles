@@ -66,6 +66,7 @@ end
 config.font = wezterm.font_with_fallback {
     -- 'MesloLGMDZNerdFont',
     -- 'MonaspaceArgon-Light',
+    -- 'MonaspaceXenon-Light',
     'MonaspaceNeon-Light',
     'MesloLGMDZNerdFontMono',
     'MesloLGS-Regular',
