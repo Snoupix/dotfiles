@@ -140,11 +140,25 @@ else
     ISNVIDIA=false
 fi
 
-read -rep $'[\e[1;33mACTION\e[0m] - Would you like to disable WiFi powersave? (y,n) ' WIFI
-if [[ $WIFI == "y" ]]; then
-    LOC="/etc/NetworkManager/conf.d/wifi-powersave.conf"
-    echo -e "$CNT - The following file has been created $LOC.\n"
-    echo -e "[connection]\nwifi.powersave = 2" | sudo tee -a $LOC &>> $INSTLOG
+NET_LOC="/etc/NetworkManager/conf.d/wifi-powersave.conf"
+read -rep $'[\e[1;33mACTION\e[0m] - Would you like to enable or disable WiFi powersave ? (enable,disable) ' WIFI
+if [[ $WIFI == "enable" ]]; then
+    echo -e "$CNT - The following file has been created $NET_LOC.\n"
+    echo -e "[connection]\nwifi.powersave = 2" | sudo tee -a $NET_LOC &>> $INSTLOG
+    echo -en "$CNT - Restarting NetworkManager service, Please wait."
+    sleep 2
+    sudo systemctl restart NetworkManager &>> $INSTLOG
+    
+    for i in {1..6}; do
+        echo -n "."
+        sleep 1
+    done
+    echo -en "Done!\n"
+    sleep 2
+    echo -e "\e[1A\e[K$COK - NetworkManager restart completed."
+else
+    echo -e "$CNT - The following file has been created $NET_LOC.\n"
+    echo -e "[connection]\nwifi.powersave = 3" | sudo tee -a $NET_LOC &>> $INSTLOG
     echo -en "$CNT - Restarting NetworkManager service, Please wait."
     sleep 2
     sudo systemctl restart NetworkManager &>> $INSTLOG
