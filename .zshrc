@@ -116,6 +116,7 @@ export GOPATH="/home/go"
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 alias hx="helix"
+alias keybinds="cat $(find /home/snoupix/work/dotfiles -name 'keybindings.conf') | less"
 
 alias please='sudo !!' # Runs the last command with sudo
 if [[ -x history ]]; then

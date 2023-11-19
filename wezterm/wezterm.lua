@@ -25,7 +25,16 @@ local function getHome()
     return os.getenv("HOME") or os.getenv("USERPROFILE") or "/home/snoupix"
 end
 
-local font_fam = osname == 'Windows' and 'MesloLGS NFM' or 'MesloLGS NF'
+local font_fam = osname == 'Windows' and {'MesloLGS NFM'} or osname == "MacOS" and {'MesloLGS NF'} or {
+    -- 'MesloLGMDZNerdFont',
+    -- 'MonaspaceArgon-Light',
+    -- 'MonaspaceXenon-Light',
+    'MonaspaceNeon-Regular',
+    'MesloLGMDZNerdFontMono',
+    'MesloLGS-Regular',
+    'JetBrainsMono',
+    'JetBrainsMonoNerdFont',
+}
 
 local function getBGPath()
     local switch = {
@@ -64,15 +73,7 @@ if wezterm.config_builder then
 end
 
 config.font = wezterm.font_with_fallback {
-    -- 'MesloLGMDZNerdFont',
-    -- 'MonaspaceArgon-Light',
-    -- 'MonaspaceXenon-Light',
-    'MonaspaceNeon-Light',
-    'MesloLGMDZNerdFontMono',
-    'MesloLGS-Regular',
-    'JetBrainsMono',
-    'JetBrainsMonoNerdFont',
-    font_fam,
+    table.unpack(font_fam),
     'monospace',
 }
 
