@@ -53,7 +53,12 @@ for DIR in $DIRS; do
         continue
     fi
 
-    rm -rf $HOME/.config/$DIR
+    if [[ -n $HYPRLAND_ ]]; then
+        dir="$(echo $DIR | sed 's/_hypr\///')"
+        rm -rf $HOME/.config/$dir
+    else
+        rm -rf $HOME/.config/$DIR
+    fi
     
     if [[ -n $REMOVE_ ]]; then
         echo "Removed $HOME/.config/$DIR symlink"
@@ -61,7 +66,7 @@ for DIR in $DIRS; do
     fi
     
     if [[ -d $DIR && ($DIR != _* || $DIR == _hypr/* && $DIR != _hypr/_*) ]]; then
-        ln -s $PWD/$DIR $HOME/.config/$DIR
+        ln -s $PWD/$DIR $HOME/.config/
         echo "Symlinked $DIR to $HOME/.config"
     fi
 done
@@ -80,7 +85,7 @@ for FILE in "${FILES[@]}"; do
     fi
 
     if [[ -f $FILE ]]; then
-        ln -s $PWD/$FILE $HOME/$FILE
+        ln -s $PWD/$FILE $HOME
         echo "Symlinked $FILE to $HOME"
     fi
 done
