@@ -2,28 +2,78 @@
 
 # Script based on https://github.com/SolDoesTech/HyprV4 By SolDoesTech
 
-PREP_STAGE=(
-    hyprland
-    dunst
-    wezterm
+INSTALL_STAGE=(
+    ark
+    beautyline
+    blueman
+    bluez
+    bluez-utils
+    brightnessctl
+    btop
+    chromium
+    cliphist
     dolphin
-    wofi
-    xdg-desktop-portal-hyprland
+    dunst
+    ffmpegthumbs
+    file-roller
+    grim
+    grimblast
+    gst-plugin-pipewire
+    gtk3
+    gvfs
+    hyprpicker
+    imagemagick
+    jq
+    kde-cli-tools
+    kvantum
+    lxappearance
+    mpv
+    network-manager-applet
+    networkmanager
+    noto-fonts-emoji
+    nwg-look
+    nwg-look-bin
+    pacman-contrib
+    pamixer
+    papirus-icon-theme
+    parallel
+    pavucontrol
+    pipewire
+    pipewire-alsa
+    pipewire-audio
+    pipewire-jack
+    pipewire-pulse
+    polkit-kde-agent
+    python-pyamdgpuinfo
+    python-requests
+    qt5-graphicaleffects
+    qt5-imageformats
+    qt5-quickcontrols
+    qt5-quickcontrols2
+    qt5-svg
     qt5-wayland
     qt5ct
-    qt5-svg
-    qt5-quickcontrols2
-    qt5-graphicaleffects
     qt6-wayland
     qt6ct
-    gtk3 
-    pipewire 
-
-    wireplumber 
-    wl-clipboard 
-    cliphist 
-    python-requests 
-    pacman-contrib
+    rofi
+    sddm
+    slurp
+    swappy
+    swaylock-effects
+    swww
+    thunar
+    thunar-archive-plugin
+    ttf-jetbrains-mono-nerd
+    ttf-meslo-nerd
+    waybar
+    wezterm
+    wireplumber
+    wl-clipboard
+    wlogout
+    wofi
+    wofi
+    xdg-desktop-portal-hyprland
+    xfce4-settings
 )
 
 NVIDIA_STAGE=(
@@ -32,43 +82,6 @@ NVIDIA_STAGE=(
     nvidia-settings 
     libva 
     libva-nvidia-driver-git
-)
-
-INSTALL_STAGE=(
-    # mako 
-    waybar
-    swww 
-    swaylock-effects 
-    wofi 
-    rofi
-    beautyline
-    wlogout 
-    xdg-desktop-portal-hyprland 
-    swappy 
-    grim 
-    slurp 
-    thunar 
-    btop
-    chromium
-    mpv
-    pamixer 
-    pavucontrol 
-    brightnessctl 
-    bluez 
-    bluez-utils 
-    blueman 
-    network-manager-applet 
-    gvfs 
-    thunar-archive-plugin 
-    file-roller
-    papirus-icon-theme 
-    ttf-meslo-nerd
-    ttf-jetbrains-mono-nerd 
-    noto-fonts-emoji 
-    lxappearance 
-    xfce4-settings
-    nwg-look-bin
-    sddm
 )
 
 CNT="[\e[1;36mNOTE\e[0m]"
@@ -142,35 +155,24 @@ fi
 
 NET_LOC="/etc/NetworkManager/conf.d/wifi-powersave.conf"
 read -rep $'[\e[1;33mACTION\e[0m] - Would you like to enable or disable WiFi powersave ? (enable,disable) ' WIFI
+echo -e "$CNT - The following file has been created $NET_LOC.\n"
 if [[ $WIFI == "enable" ]]; then
-    echo -e "$CNT - The following file has been created $NET_LOC.\n"
-    echo -e "[connection]\nwifi.powersave = 2" | sudo tee -a $NET_LOC &>> $INSTLOG
-    echo -en "$CNT - Restarting NetworkManager service, Please wait."
-    sleep 2
-    sudo systemctl restart NetworkManager &>> $INSTLOG
-    
-    for i in {1..6}; do
-        echo -n "."
-        sleep 1
-    done
-    echo -en "Done!\n"
-    sleep 2
-    echo -e "\e[1A\e[K$COK - NetworkManager restart completed."
+    echo -e "[connection]\n# Values are 0 (use default), 1 (ignore/don't touch), 2 (disable) or 3 (enable).\nwifi.powersave = 2" | sudo tee -a $NET_LOC &>> $INSTLOG
 else
-    echo -e "$CNT - The following file has been created $NET_LOC.\n"
-    echo -e "[connection]\nwifi.powersave = 3" | sudo tee -a $NET_LOC &>> $INSTLOG
-    echo -en "$CNT - Restarting NetworkManager service, Please wait."
-    sleep 2
-    sudo systemctl restart NetworkManager &>> $INSTLOG
-    
-    for i in {1..6}; do
-        echo -n "."
-        sleep 1
-    done
-    echo -en "Done!\n"
-    sleep 2
-    echo -e "\e[1A\e[K$COK - NetworkManager restart completed."
+    echo -e "[connection]\n# Values are 0 (use default), 1 (ignore/don't touch), 2 (disable) or 3 (enable).\nwifi.powersave = 3" | sudo tee -a $NET_LOC &>> $INSTLOG
 fi
+echo -en "$CNT - Restarting NetworkManager service, Please wait."
+sleep 2
+sudo systemctl restart NetworkManager &>> $INSTLOG
+
+for i in {1..6}; do
+    echo -n "."
+    sleep 1
+done
+
+echo -en "Done!\n"
+sleep 2
+echo -e "\e[1A\e[K$COK - NetworkManager restart completed."
 
 read -rep $'[\e[1;33mACTION\e[0m] - Do you want to check/install yay ? (y,n) ' YAY
 if [[ $YAY == "y" ]]; then
@@ -197,11 +199,6 @@ fi
 
 read -rep $'[\e[1;33mACTION\e[0m] - Would you like to install the packages? (y,n) ' INST
 if [[ $INST == "y" ]]; then
-    echo -e "$CNT - Prep Stage - Installing needed components, this may take a while..."
-    for SOFTWR in ${PREP_STAGE[@]}; do
-        install_software $SOFTWR 
-    done
-
     if [[ "$ISNVIDIA" == true ]]; then
         echo -e "$CNT - Nvidia GPU support setup stage, this may take a while..."
         for SOFTWR in ${NVIDIA_STAGE[@]}; do
@@ -240,60 +237,41 @@ if [[ $INST == "y" ]]; then
     yay -R --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk &>> $INSTLOG
 fi
 
-read -rep $'[\e[1;33mACTION\e[0m] - Would you like to copy config files? (y,n) ' CFG
-if [[ $CFG == "y" ]]; then
-    echo -e "$CNT - Copying config files..."
-
-    mkdir -p ~/.config/
-    ln -sf _hypr ~/.config/hypr
-
-    for DIR in $(\ls _hypr -D || tr "\n" " "); do
-        if [[ $DIR == _* ]]; then
-            continue
-        fi
-
-        ln -sf $PWD/_hypr/$DIR ~/.config/$DIR
-        echo "Symlinked $DIR into ~/.config folder"
-    done
-
-    # add the Nvidia env file to the config (if needed)
-    if [[ "$ISNVIDIA" == true ]]; then
-        echo -e "\nsource = ~/.config/_hypr_utils/env_var_nvidia.conf" >> _hypr/hypr/hyprland.conf
-    fi
-
-    echo -e "$CNT - Setting up the login screen."
-    sudo cp -R _hypr/_sdt /usr/share/sddm/themes/sdt
-    sudo chown -R $USER:$USER /usr/share/sddm/themes/sdt
-    sudo mkdir /etc/sddm.conf.d
-    echo -e "[Theme]\nCurrent=sdt" | sudo tee -a /etc/sddm.conf.d/10-theme.conf &>> $INSTLOG
-    WLDIR=/usr/share/wayland-sessions
-    if [ -d "$WLDIR" ]; then
-        echo -e "$COK - $WLDIR found"
-    else
-        echo -e "$CWR - $WLDIR NOT found, creating..."
-        sudo mkdir $WLDIR
-    fi 
-    
-    sudo cp _hypr_utils/hyprland.desktop /usr/share/wayland-sessions/
-
-    # setup the first look and feel as dark
-    # xfconf-query -c xsettings -p /Net/ThemeName -s "Adwaita-dark"
-    # xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"
-    # gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
-    # gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark"
-    # cp -f ~/.config/HyprV/backgrounds/v4-background-dark.jpg /usr/share/sddm/themes/sdt/wallpaper.jpg
+if [[ "$ISNVIDIA" == true ]]; then
+    echo -e "\nsource = ~/.config/_hypr_utils/env_var_nvidia.conf" >> _hypr/hypr/hyprland.conf
 fi
+
+echo -e "$CNT - Setting up the login screen."
+sudo cp -R _hypr/_sdt /usr/share/sddm/themes/sdt
+sudo chown -R $USER:$USER /usr/share/sddm/themes/sdt
+sudo mkdir /etc/sddm.conf.d
+echo -e "[Theme]\nCurrent=sdt" | sudo tee -a /etc/sddm.conf.d/10-theme.conf &>> $INSTLOG
+WLDIR=/usr/share/wayland-sessions
+if [ -d "$WLDIR" ]; then
+    echo -e "$COK - $WLDIR found"
+else
+    echo -e "$CWR - $WLDIR NOT found, creating..."
+    sudo mkdir $WLDIR
+fi 
+
+sudo cp _hypr_utils/hyprland.desktop /usr/share/wayland-sessions/
+
+# xfconf-query -c xsettings -p /Net/ThemeName -s "Adwaita-dark"
+# xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"
+# gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
+# gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark"
+# cp -f ~/.config/HyprV/backgrounds/v4-background-dark.jpg /usr/share/sddm/themes/sdt/wallpaper.jpg
 
 echo -e "$CNT - Script had completed!"
 if [[ "$ISNVIDIA" == true ]]; then 
     echo -e "$CAT - Since we attempted to setup an Nvidia GPU the script will now end and you should reboot.
     Please type 'reboot' at the prompt and hit Enter when ready."
-    exit
+    exit 0
 fi
 
 read -rep $'[\e[1;33mACTION\e[0m] - Would you like to start Hyprland now? (y,n) ' HYP
 if [[ $HYP == "y" ]]; then
     exec sudo systemctl start sddm &>> $INSTLOG
 else
-    exit
+    exit 0
 fi
