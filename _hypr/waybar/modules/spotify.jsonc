@@ -1,9 +1,10 @@
     "custom/spotify": {
+        "exec-if": "pgrep spotify",
         "exec": "/usr/bin/python3 $HOME/.config/waybar/modules/mediaplayer.py --player spotify",
         "format": "{} ",
         "return-type": "json",
         "on-click": "playerctl play-pause --player spotify",
-        "on-scroll-up": "playerctl next",
-        "on-scroll-down": "playerctl previous"
+        "on-click-right": "playerctl next --player spotify",
+        // "on-click-middle": "hyprctl"
     },
 

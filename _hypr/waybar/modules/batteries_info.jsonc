@@ -1,0 +1,9 @@
+    "custom/batteries_info": {
+        "format": "{}",
+        "tooltip": true,
+        "exec-if": "~/.config/hypr/scripts/batteries.sh --check",
+        "exec": "~/.config/hypr/scripts/batteries.sh",
+        "return-type": "json",
+        "interval": 25
+    },
+

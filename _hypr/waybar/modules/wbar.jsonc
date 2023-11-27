@@ -1,10 +1,16 @@
     "custom/wbar": {
-        "format": "{}", //    //
+        "format": "{}", //    //
         "exec": "echo ; echo  switch menubar //  dock",
         "on-click": "~/.config/hypr/scripts/wbarconfgen.sh n",
         "on-click-right": "~/.config/hypr/scripts/wbarconfgen.sh p",
-        "on-click-middle": "sleep 0.1 && ~/.config/hypr/scripts/quickapps.sh kitty firefox spotify code dolphin",
+        "on-click-middle": "sleep 0.1 && ~/.config/hypr/scripts/quickapps.sh wezterm google-chrome spotify thunar",
         "interval" : 86400,
         "tooltip": true
     },
+    // "custom/reload_conf": {
+    //     "format": " {}",
+    //     "on-click": "~/.config/hypr/scripts/wbarconfgen.sh n && sleep 1.25 && ~/.config/hypr/scripts/wbarconfgen.sh p",
+    //     "interval" : 86400,
+    //     "tooltip": true
+    // },
 

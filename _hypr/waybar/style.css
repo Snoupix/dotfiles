@@ -89,8 +89,10 @@ tooltip {
 }
 
 #backlight,
+#custom-batteries_info,
 #battery,
 #bluetooth,
+#custom-bluetooth_percentage,
 #custom-cliphist,
 #clock,
 #cpu,

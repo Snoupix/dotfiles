@@ -26,6 +26,7 @@ PACKAGES=(
     gzip
     fzf
     gcc
+    man-db
     zsh
     neovim
     rustup

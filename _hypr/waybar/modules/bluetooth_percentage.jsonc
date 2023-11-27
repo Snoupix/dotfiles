@@ -1,0 +1,10 @@
+    "custom/bluetooth_percentage": {
+        "format": "{}",
+        "tooltip": true,
+        "exec-if": "~/.config/hypr/scripts/bluetooth_battery.sh --check",
+        "exec": "~/.config/hypr/scripts/bluetooth_battery.sh",
+        "on-click": "blueman-manager",
+        "return-type": "json",
+        "interval": 15
+    },
+
