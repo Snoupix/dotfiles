@@ -105,7 +105,7 @@ export LANG=en_US.UTF-8
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 export EDITOR="nvim"
-export GOPATH="/home/go"
+export GOPATH="/home/snoupix/.go"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -117,6 +117,7 @@ alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 alias hx="helix"
 alias keybinds="cat $(find /home/snoupix/work/dotfiles -name 'keybindings.conf') | less"
+alias instpkgs=" yay -Q | tr -d ' [:digit:]:.-' | less"
 
 alias please='sudo !!' # Runs the last command with sudo
 if [[ -x history ]]; then
