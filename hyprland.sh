@@ -74,6 +74,7 @@ INSTALL_STAGE=(
     wofi
     xdg-desktop-portal-hyprland
     xfce4-settings
+    xwaylandvideobridge-bin
 )
 
 NVIDIA_STAGE=(
