@@ -1,4 +1,4 @@
-    "idle_inhibitor": {
+    "idle_inhibitor": { // https://man.archlinux.org/man/extra/waybar/waybar-idle-inhibitor.5.en
         "format": "{icon} ",
         "format-icons": {
         "activated": "󰥔",

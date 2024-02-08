@@ -27,6 +27,7 @@ done
 set -e
 
 FILES=(
+    .zprofile
     .bashrc
     .zshrc
     .p10k.zsh

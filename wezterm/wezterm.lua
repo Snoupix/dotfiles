@@ -25,7 +25,7 @@ local function getHome()
     return os.getenv("HOME") or os.getenv("USERPROFILE") or "/home/snoupix"
 end
 
-local font_fam = osname == 'Windows' and {'MesloLGS NFM'} or osname == "MacOS" and {'MesloLGS NF'} or {
+local font_fam = osname == 'Windows' and { 'MesloLGS NFM' } or osname == "MacOS" and { 'MesloLGS NF' } or {
     -- 'MesloLGMDZNerdFont',
     -- 'MonaspaceArgon-Light',
     -- 'MonaspaceXenon-Light',
@@ -196,5 +196,7 @@ elseif osname == "MacOS" then
 elseif osname == "Linux" then
     config.default_cwd = getHome() .. '/work'
 end
+
+config.enable_wayland = false
 
 return config

@@ -46,7 +46,10 @@ export WindBg=`[ "$gtkMode" == "dark" ] && ( echo "rgba(0,0,0,0.5)" ) || ( echo 
 if [ "$EnableWallDcol" -eq 1 ] ; then
     export wbarTheme="Wall-Dcol"
 else
-    export wbarTheme="${gtkTheme}"
+    export wbarTheme="Wall-Dcol"
+    # _theme=$(find $HOME/.config/waybar/themes -type f -name "*.css" ! -name "theme.css" | shuf -n 1 | sed 's/.*\///g' | tr -d '.css')
+    # export wbarTheme=${_theme}
+    # export wbarTheme="${gtkTheme}"
 fi
 
 # eval hypr border radius

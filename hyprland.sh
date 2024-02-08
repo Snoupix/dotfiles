@@ -31,7 +31,6 @@ INSTALL_STAGE=(
     network-manager-applet
     networkmanager
     noto-fonts-emoji
-    nwg-look
     nwg-look-bin
     pacman-contrib
     pamixer
@@ -46,6 +45,7 @@ INSTALL_STAGE=(
     polkit-kde-agent
     python-pyamdgpuinfo
     python-requests
+    powertop
     qt5-graphicaleffects
     qt5-imageformats
     qt5-quickcontrols
@@ -60,9 +60,12 @@ INSTALL_STAGE=(
     slurp
     swappy
     swaylock-effects
+    swayidle
     swww
     thunar
     thunar-archive-plugin
+    ttf-monaspace-variable
+    otf-monaspace
     ttf-jetbrains-mono-nerd
     ttf-meslo-nerd
     waybar
@@ -74,8 +77,9 @@ INSTALL_STAGE=(
     wofi
     xdg-desktop-portal-hyprland
     xfce4-settings
-    xwaylandvideobridge-bin
+    xwaylandvideobridge
 )
+# swaylock-effects-git # if the protocol is not updated
 
 NVIDIA_STAGE=(
     linux-headers 
@@ -156,7 +160,6 @@ fi
 
 NET_LOC="/etc/NetworkManager/conf.d/wifi-powersave.conf"
 read -rep $'[\e[1;33mACTION\e[0m] - Would you like to enable or disable WiFi powersave ? (enable,disable) ' WIFI
-echo -e "$CNT - The following file has been created $NET_LOC.\n"
 if [[ $WIFI == "enable" ]]; then
     echo -e "[connection]\n# Values are 0 (use default), 1 (ignore/don't touch), 2 (disable) or 3 (enable).\nwifi.powersave = 2" | sudo tee -a $NET_LOC &>> $INSTLOG
 else

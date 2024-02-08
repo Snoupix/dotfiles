@@ -26,12 +26,15 @@ PACKAGES=(
     gzip
     fzf
     gcc
+    lsof
+    tcpdump
     man-db
     zsh
     neovim
     rustup
     docker
     docker-compose
+    dart
 )
 
 PM_FLAGS=(
@@ -56,13 +59,16 @@ done
 
 # Post commands
 
-read -rep '[GIT config] Enter your name: ' name
-git config --global user.name $name
-read -rep '[GIT config] Enter your email: ' email
-git config --global user.email $email
-git config --global credential.helper store
-read -rep '[GIT config] Enter your default git branch: ' branch
-git config --global init.defaultBranch $branch
+read -rep '[GIT config] Would you like to (re)configure git? (y/n) ' git
+if [[ $git =~ ^[Yy]$ ]]; then
+    read -rep '[GIT config] Enter your name: ' name
+    git config --global user.name $name
+    read -rep '[GIT config] Enter your email: ' email
+    git config --global user.email $email
+    git config --global credential.helper store
+    read -rep '[GIT config] Enter your default git branch: ' branch
+    git config --global init.defaultBranch $branch
+fi
 
 rustup default stable
 rustup component add cargo rustfmt clippy rust-src rust-analyzer rustc rust-docs

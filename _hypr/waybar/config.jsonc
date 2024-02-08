@@ -34,7 +34,7 @@
         "format": "  {}",
         "separate-outputs": true,
         "rewrite": {
-            "snoupix@archlinux:(.*)": "$1 ",
+            "snoupix@arch-btw:(.*)": "$1 ",
             "(.*) — Mozilla Firefox": "$1 󰈹",
             "(.*)Mozilla Firefox": "Firefox 󰈹",
             "(.*) - Visual Studio Code": "$1 󰨞",
@@ -56,7 +56,7 @@
         "on-click-middle": "hyprctl dispatch workspace 3"
     },
 
-    "idle_inhibitor": {
+    "idle_inhibitor": { // https://man.archlinux.org/man/extra/waybar/waybar-idle-inhibitor.5.en
         "format": "{icon} ",
         "format-icons": {
         "activated": "󰥔",
@@ -126,7 +126,7 @@
     },
 
     "pulseaudio": {
-        "format": "{icon} {volume}",
+        "format": "{icon} {volume}%",
         "format-muted": "",
         "on-click": "pavucontrol -t 3",
         "on-click-middle": "~/.config/hypr/scripts/volumecontrol.sh -o m",
@@ -194,7 +194,7 @@
     },
 
     "custom/wallchange": {
-        "format": "{}",
+        "format": " {}",
         "exec": "echo ; echo 󰆊 switch wallpaper",
         "on-click": "~/.config/hypr/scripts/swwwallpaper.sh -n",
         "on-click-right": "~/.config/hypr/scripts/swwwallpaper.sh -p",
@@ -204,7 +204,7 @@
     },
 
     "custom/mode": {
-        "format": "{}",
+        "format": " {}",
         "exec": "echo ; echo 󰟡 switch mode",
         "on-click": "~/.config/hypr/scripts/themeswitch.sh -n",
         "on-click-right": "~/.config/hypr/scripts/themeswitch.sh -p",
@@ -214,7 +214,7 @@
     },
 
     "custom/wbar": {
-        "format": "{}", //    //
+        "format": " {}", //    //
         "exec": "echo ; echo  switch menubar //  dock",
         "on-click": "~/.config/hypr/scripts/wbarconfgen.sh n",
         "on-click-right": "~/.config/hypr/scripts/wbarconfgen.sh p",
@@ -230,7 +230,7 @@
     // },
 
     "custom/cliphist": {
-        "format": "{}",
+        "format": " {}",
         "exec": "echo ; echo 󰅇 clipboard history",
         "on-click": "sleep 0.1 && ~/.config/hypr/scripts/cliphist.sh c",
         "on-click-right": "sleep 0.1 && ~/.config/hypr/scripts/cliphist.sh d",
