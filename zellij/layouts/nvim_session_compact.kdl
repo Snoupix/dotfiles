@@ -1,0 +1,20 @@
+pane_frames false
+layout {
+    pane split_direction="vertical" {
+        pane split_direction="horizontal" {
+            size "30%"
+            pane borderless=false {
+                size "70%"
+            }
+            pane borderless=false {
+                size "30%"
+            }
+        }
+        pane borderless=false command="nvim" {
+            args "-S" "Session.vim"
+        }
+    }
+    pane size=1 borderless=true {
+        plugin location="zellij:compact-bar"
+    }
+}

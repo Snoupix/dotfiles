@@ -5,6 +5,7 @@
 INSTALL_STAGE=(
     ark
     beautyline
+    betterbird-bin
     blueman
     bluez
     bluez-utils

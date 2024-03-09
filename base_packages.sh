@@ -34,6 +34,7 @@ PACKAGES=(
     rustup
     docker
     docker-compose
+    docker-buildx
     dart
 )
 
