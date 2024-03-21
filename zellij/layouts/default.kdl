@@ -1,9 +1,7 @@
+pane_frames false
 layout {
+    pane borderless=false
     pane size=1 borderless=true {
-        plugin location="zellij:tab-bar"
-    }
-    pane
-    pane size=1 borderless=true {
-        plugin location="zellij:status-bar"
+        plugin location="zellij:compact-bar"
     }
 }
