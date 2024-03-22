@@ -114,8 +114,15 @@ export CHROME_EXECUTABLE=$(which google-chrome-stable)
 # For a full list of active aliases, run `alias`.
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
-alias hx="helix"
-alias keybinds="cat $(find /home/snoupix/work/dotfiles -name 'keybindings.conf') | less"
+which hx > /dev/null 2>&1
+if [[ $? -eq 1 ]]; then
+    alias hx="helix"
+fi
+if [[ uname -eq "Darwin" ]]; then
+    alias keybinds="cat $(find /Users/admin/work/dotfiles -name 'keybindings.conf') | less"
+else
+    alias keybinds="cat $(find /home/snoupix/work/dotfiles -name 'keybindings.conf') | less"
+fi
 alias instpkgs=" yay -Q | tr -d ' [:digit:]:.-' | less"
 alias dc="docker compose"
 alias z="zellij a work"
@@ -150,3 +157,6 @@ esac
 # pnpm end
 
 [ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
+
+# To customize prompt, run `p10k configure` or edit ~/work/dotfiles/.p10k.zsh.
+[[ ! -f ~/work/dotfiles/.p10k.zsh ]] || source ~/work/dotfiles/.p10k.zsh

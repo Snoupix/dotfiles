@@ -41,10 +41,10 @@ PACKAGES=(
 PM_FLAGS=(
     "yay:-S --noconfirm --needed"
     "pacman:-S --noconfirm --needed"
-    "apt:install"
     "brew:install"
     "dnf:install -y"
     "yum:install -y"
+    "apt:install"
 )
 
 for V in "${PM_FLAGS[@]}"; do

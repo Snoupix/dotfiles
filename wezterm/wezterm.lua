@@ -25,50 +25,64 @@ local function getHome()
     return os.getenv("HOME") or os.getenv("USERPROFILE") or "/home/snoupix"
 end
 
-local font_fam = osname == 'Windows' and { 'MesloLGS NFM' } or osname == "MacOS" and { 'MesloLGS NF' } or {
-    -- 'MesloLGMDZNerdFont',
-    -- 'MonaspaceArgon-Light',
-    -- 'MonaspaceXenon-Light',
-    {
-        family = 'MonaspaceNeon-Regular',
-        harfbuzz_features = { -- https://github.com/githubnext/monaspace#coding-ligatures
-            "calt=1",
-            "dlig=1",
-            "clig=1",
-            "liga=1",
-            "kern=1",
-            "mark=1",
-            "mkmk=1",
-            "rclt=1",
-            "rlig=1",
-            "curs=1",
-            "kern=1",
-            "mark=1",
-            "mkmk=1",
-            "rclt=1",
-            "rlig=1",
-            "curs=1",
-            "ss01=1",
-            "ss02=1",
-            "ss03=1",
-            "ss04=1",
-            "ss05=1",
-            "ss06=0",
-            "ss07=1",
-            "ss08=1"
-        },
-    },
-    'MesloLGMDZNerdFontMono',
-    'MesloLGS-Regular',
-    'JetBrainsMono',
-    'JetBrainsMonoNerdFont',
+local font_fam = { 'MesloLGS NFM' } -- Windows
+local harfbuzz_features = {         -- https://github.com/githubnext/monaspace#coding-ligatures
+    "calt=1",
+    "dlig=1",
+    "clig=1",
+    "liga=1",
+    "kern=1",
+    "mark=1",
+    "mkmk=1",
+    "rclt=1",
+    "rlig=1",
+    "curs=1",
+    "kern=1",
+    "mark=1",
+    "mkmk=1",
+    "rclt=1",
+    "rlig=1",
+    "curs=1",
+    "ss01=1",
+    "ss02=1",
+    "ss03=1",
+    "ss04=1",
+    "ss05=1",
+    "ss06=0",
+    "ss07=1",
+    "ss08=1"
 }
+if osname == "Linux" then
+    font_fam = {
+        -- 'MesloLGMDZNerdFont',
+        -- 'MonaspaceArgon-Light',
+        -- 'MonaspaceXenon-Light',
+        {
+            family = 'MonaspaceNeon-Regular',
+            harfbuzz_features = harfbuzz_features,
+        },
+        'MesloLGMDZNerdFontMono',
+        'MesloLGS-Regular',
+        'JetBrainsMono',
+        'JetBrainsMonoNerdFont',
+    }
+elseif osname == "MacOS" then
+    font_fam = {
+        {
+            family = 'Monaspace Neon',
+            harfbuzz_features = harfbuzz_features,
+        },
+        'MesloLGS NF',
+        'JetBrainsMono',
+        'JetBrainsMonoNerdFont',
+    }
+end
 
 local function getBGPath()
     local switch = {
         ["Windows"] = [[e:/Steam/userdata/234096917/760/remote/1250410/screenshots/wallpapers]],
         ["Linux"] = "/home/snoupix/wallpapers",
-        ["MacOS"] = "/Users/snoupix/wallpapers",
+        ["MacOS"] = "/Users/admin/Pictures/wallpapers",
     }
 
     return switch[osname]
@@ -105,7 +119,7 @@ config.font = wezterm.font_with_fallback {
     'monospace',
 }
 
-config.font_size = osname == "Linux" and 10.5 or 10.0
+config.font_size = osname == "Linux" and 10.5 or osname == "MacOS" and 10.5 or 10.0
 
 config.colors = {
     foreground = '#EBDDF4',
@@ -193,6 +207,7 @@ if osname == "Windows" then
     config.default_cwd = [[\\wsl$\Arch\home\snoupix\work]]
 elseif osname == "MacOS" then
     config.native_macos_fullscreen_mode = true
+    config.default_cwd = getHome() .. '/work'
 elseif osname == "Linux" then
     config.default_cwd = getHome() .. '/work'
 end
