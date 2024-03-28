@@ -118,7 +118,7 @@ which hx > /dev/null 2>&1
 if [[ $? -eq 1 ]]; then
     alias hx="helix"
 fi
-if [[ uname -eq "Darwin" ]]; then
+if [[ $(uname) == "Darwin" ]]; then
     alias keybinds="cat $(find /Users/admin/work/dotfiles -name 'keybindings.conf') | less"
 else
     alias keybinds="cat $(find /home/snoupix/work/dotfiles -name 'keybindings.conf') | less"
