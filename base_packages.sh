@@ -36,6 +36,7 @@ PACKAGES=(
     docker-compose
     docker-buildx
     dart
+    websocat
 )
 
 PM_FLAGS=(

@@ -17,6 +17,7 @@ INSTALL_STAGE=(
     dunst
     ffmpegthumbs
     file-roller
+    firefox-developer-edition
     grim
     grimblast
     gst-plugin-pipewire
