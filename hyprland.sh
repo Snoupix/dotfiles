@@ -57,7 +57,7 @@ INSTALL_STAGE=(
     qt5ct
     qt6-wayland
     qt6ct
-    rofi
+    rofi-wayland
     sddm
     slurp
     swappy
