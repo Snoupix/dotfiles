@@ -33,7 +33,7 @@ INSTALL_STAGE=(
     network-manager-applet
     networkmanager
     noto-fonts-emoji
-    nwg-look-bin
+    nwg-look
     pacman-contrib
     pamixer
     papirus-icon-theme
@@ -163,9 +163,9 @@ fi
 NET_LOC="/etc/NetworkManager/conf.d/wifi-powersave.conf"
 read -rep $'[\e[1;33mACTION\e[0m] - Would you like to enable or disable WiFi powersave ? (enable,disable) ' WIFI
 if [[ $WIFI == "enable" ]]; then
-    echo -e "[connection]\n# Values are 0 (use default), 1 (ignore/don't touch), 2 (disable) or 3 (enable).\nwifi.powersave = 2" | sudo tee -a $NET_LOC &>> $INSTLOG
+    echo -e "[connection]\n# Values are 0 (use default), 1 (ignore/don't touch), 2 (disable) or 3 (enable).\nwifi.powersave = 2" | sudo tee $NET_LOC &>> $INSTLOG
 else
-    echo -e "[connection]\n# Values are 0 (use default), 1 (ignore/don't touch), 2 (disable) or 3 (enable).\nwifi.powersave = 3" | sudo tee -a $NET_LOC &>> $INSTLOG
+    echo -e "[connection]\n# Values are 0 (use default), 1 (ignore/don't touch), 2 (disable) or 3 (enable).\nwifi.powersave = 3" | sudo tee $NET_LOC &>> $INSTLOG
 fi
 echo -en "$CNT - Restarting NetworkManager service, Please wait."
 sleep 2
