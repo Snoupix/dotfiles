@@ -127,10 +127,10 @@ alias instpkgs=" yay -Q | tr -d ' [:digit:]:.-' | less"
 alias dc="docker compose"
 alias z="zellij a work"
 
-alias please='sudo !!' # Runs the last command with sudo
-if [[ -x history ]]; then
-    alias please='sudo $(history !!)'
-fi
+# alias please='sudo !!' # Runs the last command with sudo
+# if [[ -x history ]]; then
+#     alias please='sudo $(history !!)'
+# fi
 
 alias l='ls -Al'
 if [[ -x ~/.cargo/bin/eza ]]; then

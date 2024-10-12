@@ -1,42 +1,43 @@
 #!/bin/bash
 
 PACKAGES=(
-    unzip
-    curl
-    git
-    go
-    neofetch
-    nodejs
-    npm
-    python3
-    python3-pip
-    which
-    wget
-    tar
-    sed
-    grep
-    rsync
-    pass
-    make
     cmake
-    jq
-    tr
-    less
-    htop
-    gzip
+    curl
+    dart
+    docker
+    docker-buildx
+    docker-compose
     fzf
     gcc
+    git
+    go
+    grep
+    gzip
+    htop
+    jq
+    just
+    less
     lsof
-    tcpdump
+    make
     man-db
-    zsh
+    neofetch
     neovim
+    nodejs
+    npm
+    pass
+    python3
+    python3-pip
+    rsync
     rustup
-    docker
-    docker-compose
-    docker-buildx
-    dart
+    sed
+    tar
+    tcpdump
+    tr
+    unzip
     websocat
+    wget
+    which
+    zsh
 )
 
 PM_FLAGS=(
@@ -61,7 +62,7 @@ done
 
 # Post commands
 
-read -rep '[GIT config] Would you like to (re)configure git? (y/n) ' git
+read -rep '[GIT config] Would you like to (re)configure git? (y/N) ' git
 if [[ $git =~ ^[Yy]$ ]]; then
     read -rep '[GIT config] Enter your name: ' name
     git config --global user.name $name
@@ -79,8 +80,13 @@ rustup update
 cargo install --locked zellij
 cargo install ripgrep
 cargo install eza
+cargo install cargo-watch
+cargo install cargo-cache
 
-nvim --headless '+Lazy! restore' +qa
+read -rep '[Neovim config] Would you like to restore nvim packages? (y/N) ' nv
+if [[ $nv =~ ^[Yy]$ ]]; then
+    nvim --headless '+Lazy! restore' +qa
+fi
 
 curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
 curl -fsSL https://github.com/githubnext/monaspace/blob/main/util/install_linux.sh | sh
