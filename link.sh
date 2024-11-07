@@ -61,12 +61,12 @@ for DIR in $DIRS; do
     else
         rm -rf $HOME/.config/$DIR
     fi
-    
+
     if [[ -n $REMOVE_ ]]; then
         echo "Removed $HOME/.config/$DIR symlink"
         continue
     fi
-    
+
     if [[ -d $DIR && ($DIR != _* || $DIR == _hypr/* && $DIR != _hypr/_*) ]]; then
         ln -s $PWD/$DIR $HOME/.config/
         echo "Symlinked $DIR to $HOME/.config"
@@ -91,6 +91,23 @@ for FILE in "${FILES[@]}"; do
         echo "Symlinked $FILE to $HOME"
     fi
 done
+
+# TODO: /etc/sddm.conf.d/10-theme.conf should have "
+# [Theme]
+# Current=sdt
+# "
+SDDM_THEME="_hypr/_sdt"
+TARGET_DIR="/usr/share/sddm/themes/sdt"
+if [[ -n $HYPRLAND_ ]]; then
+    if [[ -n $DRYRUN_ ]]; then
+        echo "[ $SDDM_THEME ] would be symlinked to $TARGET_DIR"
+    else
+        # /etc folder needs sudo perms
+        sudo rm -r $TARGET_DIR
+        sudo ln -sf $PWD/$SDDM_THEME $TARGET_DIR
+        echo "Symlinked $SDDM_THEME to $TARGET_DIR"
+    fi
+fi
 
 echo "Done!"
 exit 0
