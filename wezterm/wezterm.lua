@@ -1,6 +1,7 @@
 local wezterm = require 'wezterm'
 
 local config = {}
+config.adjust_window_size_when_changing_font_size = false
 
 if wezterm.config_builder then
     config = wezterm.config_builder()
