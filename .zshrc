@@ -1,3 +1,12 @@
+function is_work_os() {
+    if [ ! -f /etc/lsb-release ]; then
+        echo "Missing lsb package that makes the /etc/lsb-release file"
+    fi
+
+    cat /etc/lsb-release | rg "distrib_id=pop" -i 2&>1 > /dev/null
+    return $?
+}
+
 export PATH="/bin:/sbin:$HOME/.cargo/bin:$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:/opt/flutter/bin:$PATH"
 
 # eval "$(zellij setup --generate-auto-start zsh)"
@@ -84,7 +93,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions rust pass zsh-vi-mode)
+plugins=(git zsh-autosuggestions rust zsh-vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -160,3 +169,13 @@ esac
 
 # To customize prompt, run `p10k configure` or edit ~/work/dotfiles/.p10k.zsh.
 [[ ! -f ~/work/dotfiles/.p10k.zsh ]] || source ~/work/dotfiles/.p10k.zsh
+
+if [ is_work_os ]; then
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    . "/home/snoupix/.deno/env"
+
+    # Alias of yay -Syu to update & upgrade all
+    alias yay="sudo apt update && sudo apt upgrade"
+fi

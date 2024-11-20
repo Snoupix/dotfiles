@@ -10,3 +10,5 @@ alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 
 export PATH="/bin:/sbin:$HOME/.cargo/bin:$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:$PATH"
+#. "$HOME/.cargo/env"
+#. "/home/snoupix/.deno/env"
