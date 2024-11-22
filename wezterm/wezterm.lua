@@ -26,6 +26,24 @@ local function getHome()
     return os.getenv("HOME") or os.getenv("USERPROFILE") or "/home/snoupix"
 end
 
+local function is_work_os()
+    local file_path = "/etc/lsb-release"
+    if osname ~= "Linux" then
+        return false
+    end
+
+    local os_file = io.open(file_path, "r")
+    if os_file == nil then
+        wezterm.log_warn(file_path .. " file not found to retrieve OS distro")
+        return false
+    end
+
+    local content = os_file:read("a")
+    os_file:close()
+
+    return content:lower():find("distrib_id=pop")
+end
+
 local font_fam = { 'MesloLGS NFM' } -- Windows
 local harfbuzz_features = {         -- https://github.com/githubnext/monaspace#coding-ligatures
     "calt=1",
@@ -196,7 +214,7 @@ table.insert(config.background, {
     source = {
         Color = '#010B17',
     },
-    opacity = osname == "Linux" and 0.2 or 0.85,
+    opacity = osname == "Linux" and (is_work_os() and 0.8 or 0.2) or 0.85,
     hsb = {
         brightness = 1.0,
         hue = 1.0,
