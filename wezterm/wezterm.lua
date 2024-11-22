@@ -7,7 +7,7 @@ if wezterm.config_builder then
     config = wezterm.config_builder()
 end
 
-local default_bg = "20230328173918_1.jpg"
+local default_bg_name = "20230328173918_1.jpg"
 local osname = 'Windows' -- Windows, Linux or MacOS
 
 local separator = package.config:sub(1, 1)
@@ -110,6 +110,11 @@ end
 local function getRandomBGorDefault(directory, default_bg)
     local files = {}
     local pfile = io.popen('dir "' .. directory .. '" /b')
+
+    if pfile == nil then
+        return default_bg
+    end
+
     local result = pfile:read('*a')
 
     pfile:close()
@@ -140,6 +145,7 @@ config.font = wezterm.font_with_fallback {
 
 config.font_size = osname == "Linux" and 10.5 or osname == "MacOS" and 10.5 or 10.0
 
+-- TODO: https://wezfurlong.org/wezterm/config/appearance.html#tab-bar-appearance-colors
 config.colors = {
     foreground = '#EBDDF4',
     background = '#010B17',
@@ -183,8 +189,8 @@ config.switch_to_last_active_tab_when_closing_tab = true
 config.window_padding = {
     left = 5,
     right = 5,
-    top = 10,
-    bottom = 10,
+    top = 8,
+    bottom = 8,
 }
 
 if config.background == nil then
@@ -196,7 +202,7 @@ if osname ~= "Linux" then
         source = {
             File = getRandomBGorDefault(
                 getBGPath(),
-                getBGPath() .. '/' .. default_bg
+                getBGPath() .. '/' .. default_bg_name
             ),
         },
         opacity = 1.0,
