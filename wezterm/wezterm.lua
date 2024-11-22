@@ -8,27 +8,27 @@ if wezterm.config_builder then
 end
 
 local default_bg_name = "20230328173918_1.jpg"
-local osname = 'Windows' -- Windows, Linux or MacOS
+local os_name = 'Windows' -- Windows, Linux or MacOS
 
 local separator = package.config:sub(1, 1)
 if separator == '/' then
     local uname = io.popen("uname -s"):read("*l")
     if uname == "Linux" then
-        osname = 'Linux'
+        os_name = 'Linux'
     elseif uname == "Darwin" then
-        osname = 'MacOS'
+        os_name = 'MacOS'
     end
 elseif separator == '\\' then
-    osname = 'Windows'
+    os_name = 'Windows'
 end
 
-local function getHome()
+local function get_home()
     return os.getenv("HOME") or os.getenv("USERPROFILE") or "/home/snoupix"
 end
 
 local function is_work_os()
     local file_path = "/etc/lsb-release"
-    if osname ~= "Linux" then
+    if os_name ~= "Linux" then
         return false
     end
 
@@ -41,7 +41,8 @@ local function is_work_os()
     local content = os_file:read("a")
     os_file:close()
 
-    return content:lower():find("distrib_id=pop")
+    -- find method returns either the index or nil
+    return content:lower():find("distrib_id=pop") ~= nil
 end
 
 local font_fam = { 'MesloLGS NFM' } -- Windows
@@ -71,7 +72,7 @@ local harfbuzz_features = {         -- https://github.com/githubnext/monaspace#c
     "ss07=1",
     "ss08=1"
 }
-if osname == "Linux" then
+if os_name == "Linux" then
     font_fam = {
         -- 'MesloLGMDZNerdFont',
         -- 'MonaspaceArgon-Light',
@@ -85,7 +86,7 @@ if osname == "Linux" then
         'JetBrainsMono',
         'JetBrainsMonoNerdFont',
     }
-elseif osname == "MacOS" then
+elseif os_name == "MacOS" then
     font_fam = {
         {
             family = 'Monaspace Neon',
@@ -104,7 +105,7 @@ local function getBGPath()
         ["MacOS"] = "/Users/admin/Pictures/wallpapers",
     }
 
-    return switch[osname]
+    return switch[os_name]
 end
 
 local function getRandomBGorDefault(directory, default_bg)
@@ -143,7 +144,7 @@ config.font = wezterm.font_with_fallback {
     'monospace',
 }
 
-config.font_size = osname == "Linux" and 10.5 or osname == "MacOS" and 10.5 or 10.0
+config.font_size = os_name == "Linux" and 10.5 or os_name == "MacOS" and 10.5 or 10.0
 
 -- TODO: https://wezfurlong.org/wezterm/config/appearance.html#tab-bar-appearance-colors
 config.colors = {
@@ -197,7 +198,7 @@ if config.background == nil then
     config.background = {}
 end
 
-if osname ~= "Linux" then
+if os_name ~= "Linux" then
     table.insert(config.background, {
         source = {
             File = getRandomBGorDefault(
@@ -220,7 +221,7 @@ table.insert(config.background, {
     source = {
         Color = '#010B17',
     },
-    opacity = osname == "Linux" and (is_work_os() and 0.8 or 0.2) or 0.85,
+    opacity = os_name == "Linux" and (is_work_os() and 0.8 or 0.2) or 0.85,
     hsb = {
         brightness = 1.0,
         hue = 1.0,
@@ -230,7 +231,7 @@ table.insert(config.background, {
     width = '100%',
 })
 
-if osname == "Windows" then
+if os_name == "Windows" then
     config.default_prog = {
         'C:\\Windows\\System32\\wsl.exe',
         '-d',
@@ -238,13 +239,13 @@ if osname == "Windows" then
     }
 
     config.default_cwd = [[\\wsl$\Arch\home\snoupix\work]]
-elseif osname == "MacOS" then
+elseif os_name == "MacOS" then
     config.native_macos_fullscreen_mode = true
-    config.default_cwd = getHome() .. '/work'
-elseif osname == "Linux" then
-    config.default_cwd = getHome() .. '/work'
+    config.default_cwd = get_home() .. '/work'
+elseif os_name == "Linux" then
+    config.default_cwd = get_home() .. '/work'
 end
 
-config.enable_wayland = false
+config.enable_wayland = is_work_os()
 
 return config

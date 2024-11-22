@@ -3,7 +3,7 @@ function is_work_os() {
         echo "Missing lsb package that makes the /etc/lsb-release file"
     fi
 
-    cat /etc/lsb-release | rg "distrib_id=pop" -i 2&>1 > /dev/null
+    cat /etc/lsb-release | rg "distrib_id=pop" -i 2>&1 > /dev/null
     return $?
 }
 
@@ -170,7 +170,8 @@ esac
 # To customize prompt, run `p10k configure` or edit ~/work/dotfiles/.p10k.zsh.
 [[ ! -f ~/work/dotfiles/.p10k.zsh ]] || source ~/work/dotfiles/.p10k.zsh
 
-if [ is_work_os ]; then
+if is_work_os; then
+    echo "work os"
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
