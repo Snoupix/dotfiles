@@ -221,7 +221,7 @@ table.insert(config.background, {
     source = {
         Color = '#010B17',
     },
-    opacity = os_name == "Linux" and (is_work_os() and 0.8 or 0.2) or 0.85,
+    opacity = os_name == "Linux" and (is_work_os() and 0.9 or 0.2) or 0.85,
     hsb = {
         brightness = 1.0,
         hue = 1.0,

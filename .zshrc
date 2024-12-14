@@ -171,12 +171,12 @@ esac
 [[ ! -f ~/work/dotfiles/.p10k.zsh ]] || source ~/work/dotfiles/.p10k.zsh
 
 if is_work_os; then
-    echo "work os"
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
     . "/home/snoupix/.deno/env"
 
     # Alias of yay -Syu to update & upgrade all
-    alias yay="sudo apt update && sudo apt upgrade"
+    alias yay="cd $HOME && just update"
+    export PATH=$PATH:/usr/local/go/bin:/home/snoupix/.go/bin
 fi

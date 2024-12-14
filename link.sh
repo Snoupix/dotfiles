@@ -31,6 +31,7 @@ FILES=(
     .bashrc
     .zshrc
     .p10k.zsh
+    .Justfile
 )
 
 if [[ -z $HOME || -z $PWD ]]; then
