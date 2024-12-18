@@ -10,6 +10,28 @@ update:
     sudo apt update
     sudo apt upgrade
     flatpak update
+    rustup update
+
+    skip=("cargo" "cargo-clippy" "cargo-fmt" "clippy-driver" "rls" "rustc" "rustdoc" "rustfmt" "rustup")
+    for bin in $(ls /home/snoupix/.cargo/bin); do
+        if [[ ${skip[@]} =~ $bin ]]; then
+            continue
+        fi
+
+        echo "Updating $bin..."
+        out=$(cargo install $bin 2>&1)
+        if [ $? -eq 101 ]; then
+            pkg=$(echo $out | rg -o '`([^`]+)`' --replace '$1' | tail -n 1 | sed "s/[\sv(0-9)\.]*//g")
+            if [ "$pkg" = "*" ]; then
+                continue
+            fi
+
+            echo "$out => trying to update/install $pkg instead..."
+            cargo install $pkg
+            continue
+        fi
+        echo $out
+    done
 
     cd /home/snoupix/packages/neovim
     git fetch -ft --all
@@ -29,11 +51,11 @@ update:
     fi
 
 start_pingview:
-    cd {{ cwd / "pingadmin-devtools" }} && \
+    cd {{ cwd / "work/pingadmin-devtools" }} && \
     make dev && \
     make vault-unseal
 
-    cd {{ cwd / "pingview-devtools" }} && \
+    cd {{ cwd / "work/pingview-devtools" }} && \
     make dev
 
     docker stop pingview_fry_1

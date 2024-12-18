@@ -15,7 +15,6 @@ PACKAGES=(
     gzip
     htop
     jq
-    just
     less
     lsof
     make
@@ -59,7 +58,7 @@ for V in "${PM_FLAGS[@]}"; do
                 continue
             fi
 
-            sudo $PM $ARGS $PKG
+            $PM $ARGS $PKG
         done
         break
     fi
@@ -89,6 +88,7 @@ if [[ $cb =~ ^[Yy]$ ]]; then
     cargo install eza
     cargo install cargo-watch
     cargo install cargo-cache
+    cargo install just
 fi
 
 read -rep '[Neovim config] Would you like to restore nvim packages? (y/N) ' nv

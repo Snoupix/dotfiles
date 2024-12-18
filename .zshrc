@@ -179,4 +179,5 @@ if is_work_os; then
     # Alias of yay -Syu to update & upgrade all
     alias yay="cd $HOME && just update"
     export PATH=$PATH:/usr/local/go/bin:/home/snoupix/.go/bin
+    export GOPRIVATE=pingcode.io/*
 fi
