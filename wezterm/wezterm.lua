@@ -119,7 +119,7 @@ config.font = wezterm.font_with_fallback {
     'monospace',
 }
 
-config.font_size = osname == "Linux" and 14.5 or osname == "MacOS" and 10.5 or 10.0
+config.font_size = osname == "Linux" and 15.0 or osname == "MacOS" and 10.5 or 10.0
 
 config.colors = {
     foreground = '#EBDDF4',

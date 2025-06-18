@@ -37,6 +37,7 @@ PACKAGES=(
     docker-buildx
     dart
     websocat
+    usbutils
 )
 
 PM_FLAGS=(
@@ -61,7 +62,7 @@ done
 
 # Post commands
 
-read -rep '[GIT config] Would you like to (re)configure git? (y/n) ' git
+read -rep '[GIT config] Would you like to (re)configure git? (y/N) ' git
 if [[ $git =~ ^[Yy]$ ]]; then
     read -rep '[GIT config] Enter your name: ' name
     git config --global user.name $name
