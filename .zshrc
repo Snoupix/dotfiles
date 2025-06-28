@@ -135,6 +135,7 @@ fi
 alias instpkgs=" yay -Q | tr -d ' [:digit:]:.-' | less"
 alias dc="docker compose"
 alias z="zellij a work"
+alias rr="ranger"
 
 # alias please='sudo !!' # Runs the last command with sudo
 # if [[ -x history ]]; then
@@ -145,7 +146,7 @@ alias l='ls -Al'
 if [[ -x ~/.cargo/bin/eza ]]; then
     alias l='eza -la --icons=auto' # long list all
     alias ls='eza --icons=auto' # short list
-    alias ld='eza -D --icons=auto' # short list dirs
+    alias lsd='eza -D --icons=auto' # short list dirs
     alias lld='eza -lD --icons=auto' # short list dirs
 fi
 
@@ -171,13 +172,23 @@ esac
 [[ ! -f ~/work/dotfiles/.p10k.zsh ]] || source ~/work/dotfiles/.p10k.zsh
 
 if is_work_os; then
-    export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
     . "/home/snoupix/.deno/env"
 
     # Alias of yay -Syu to update & upgrade all
     alias yay="cd $HOME && just update"
+    alias docker-compose="docker compose"
+    alias dc="docker-compose"
+    alias android-studio="~/android-studio/bin/studio.sh"
+
+    export NVM_DIR="$HOME/.nvm"
     export PATH=$PATH:/usr/local/go/bin:/home/snoupix/.go/bin
     export GOPRIVATE=pingcode.io/*
+    if which nvm 2>&1 > /dev/null; then
+        nvm use stable 2>&1 > /dev/null
+    fi
+
+    # Allow Docker to connect to X server
+    xhost +local:docker 2>&1 > /dev/null
 fi
