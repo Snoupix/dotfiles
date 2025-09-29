@@ -11,6 +11,7 @@ update:
     sudo apt upgrade
     sudo apt autoremove
     flatpak update
+    snap refresh
     deno upgrade
     rustup update
 
@@ -34,23 +35,6 @@ update:
         fi
         echo $out
     done
-
-    cd /home/snoupix/packages/neovim
-    git fetch -ft --all
-    current_commit=$(git rev-parse HEAD)
-    current_stable=$(git rev-parse stable 2>/dev/null)
-
-    # if [ "$current_commit" != "$current_stable" ]; then
-        # git reset --hard
-        # git clean -fd
-        # git checkout stable
-
-        # sudo cmake --build build/ --target uninstall
-        # sudo rm /usr/local/bin/nvim
-        # sudo rm -r /usr/local/share/nvim build/
-        # make CMAKE_BUILD_TYPE=Release
-        # sudo make install
-    # fi
 
 start_pingview:
     cd {{ cwd / "pingflow/pingadmin-devtools" }} && \
