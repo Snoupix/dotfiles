@@ -104,9 +104,9 @@ if [[ -n $HYPRLAND_ ]]; then
         echo "[ $SDDM_THEME ] would be symlinked to $TARGET_DIR"
     else
         # /etc folder needs sudo perms
-        sudo rm -r $TARGET_DIR
-        sudo ln -sf $PWD/$SDDM_THEME $TARGET_DIR
-        echo "Symlinked $SDDM_THEME to $TARGET_DIR"
+        sudo rm -r $TARGET_DIR || true
+        sudo cp -R $PWD/$SDDM_THEME $TARGET_DIR
+        echo "Copied $SDDM_THEME to $TARGET_DIR"
     fi
 fi
 

@@ -136,6 +136,7 @@ alias instpkgs=" yay -Q | tr -d ' [:digit:]:.-' | less"
 alias dc="docker compose"
 alias z="zellij a work"
 alias rr="ranger"
+alias oc="opencode"
 
 # alias please='sudo !!' # Runs the last command with sudo
 # if [[ -x history ]]; then
@@ -192,3 +193,6 @@ if is_work_os; then
     # Allow Docker to connect to X server
     xhost +local:docker 2>&1 > /dev/null
 fi
+
+# opencode
+export PATH=/home/snoupix/.opencode/bin:$PATH

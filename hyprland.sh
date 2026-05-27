@@ -185,7 +185,7 @@ if [[ $YAY == "y" ]]; then
     if [ ! -f /sbin/yay ]; then  
         echo -en "$CNT - Configuring yay."
         git clone https://aur.archlinux.org/yay-bin &>> $INSTLOG
-        cd yay
+        cd yay-bin
         makepkg -si --noconfirm &>> ../$INSTLOG &
         show_progress $!
         if [ -f /sbin/yay ]; then

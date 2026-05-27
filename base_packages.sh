@@ -96,11 +96,11 @@ if [[ $nv =~ ^[Yy]$ ]]; then
     nvim --headless '+Lazy! restore' +qa
 fi
 
-git clone https://github.com/githubnext/monaspace
-cd monaspace
-./util/install_linux.sh
-cd ..
-rm -rf ./monaspace
+# git clone https://github.com/githubnext/monaspace
+# cd monaspace
+# ./util/install_linux.sh
+# cd ..
+# rm -rf ./monaspace
 curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 git clone https://github.com/jeffreytse/zsh-vi-mode ~/.oh-my-zsh/custom/plugins/zsh-vi-mode

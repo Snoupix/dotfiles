@@ -57,7 +57,7 @@ Wall_Set()
         xtrans="grow"
     fi
 
-    swww img "$wallSet" \
+    awww img "$wallSet" \
     --transition-bezier .43,1.19,1,.4 \
     --transition-type "$xtrans" \
     --transition-duration 0.7 \
@@ -124,11 +124,11 @@ while getopts "nps" option ; do
 done
 
 
-# check swww daemon and set wall
+# check awww daemon and set wall
 
-swww query
+awww query
 if [ $? -eq 1 ] ; then
-    swww init
+    awww-daemon
 fi
 
 Wall_Set
