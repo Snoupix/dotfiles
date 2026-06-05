@@ -1,0 +1,15 @@
+-- Monitor configuration
+
+hl.monitor({
+    output = "DP-1",
+    mode = "2560x1080@144",
+    position = "0x0",
+    scale = 1,
+    bitdepth = 10,
+})
+
+hl.config({
+    misc = {
+        vrr = 0
+    }
+})
